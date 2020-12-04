@@ -13,6 +13,11 @@ const routes = [
     component: () => import('layouts/Login.vue')
   },
 
+  {
+    path: '/dashboard',
+    component: () => import('layouts/Dashboard.vue')
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {
