@@ -1,5 +1,5 @@
 <template>
-  <q-layout row inline view="lHh Lpr lFf">
+    <q-layout view="hHh Lpr lff">
     <q-header elevated class="bg-brown-13">
       <q-toolbar>
         <q-btn
@@ -7,8 +7,12 @@
           dense
           round
           icon="menu"
-          aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
+        />
+        <q-icon
+        name="menu"
+        @click="leftDrawerOpen = !leftDrawerOpen"
+        style="font-size: 1.5em;"
         />
 
         <q-toolbar-title>
@@ -27,11 +31,12 @@
       <q-list>
         <q-item-label
           header
-          class="text-grey-8"
+          class="text-brown"
         >
           Menu
         </q-item-label>
         <EssentialLink
+        class="text-brown"
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
@@ -39,126 +44,95 @@
       </q-list>
     </q-drawer>
     <q-page-container>
-    <q-stepper
-      v-model="step"
-      ref="stepper"
-      color="primary"
-      header-nav
-      animated
-    >
-      <q-step
-        :name="1"
-        title="Financeiro"
-        icon="create_new_folder"
-        >
-        <VueSvgGauge
-        style="width: 300px"
-        v-for="gauge in valoresFinanceiro"
+    <b-card>
+      <b-tabs
+      brown
+      pills
+      fill
+      card
+      title-item-class="text-danger"
+      active-nav-item-class="font-weight-bold text-uppercase text-white bg-brown"
+      active-tab-class="font-weight-bold text-brown"
+      content-class="mt-3">
+        <b-tab no-body title="Financeiro" title-link-class="text-brown">
+           <b-container display="flexbox">
+            <b-row cols="3">
+                <b-col
+                align-self="end"
+                v-for="gauge in valoresFinanceiro"
         :key="gauge.value"
          v-bind="gauge.value"
+                >
+          <VueSvgGauge
         :value="gauge.value"
         :title="gauge.title"
         :separator-step="gauge.separatorStep"
         >
         </VueSvgGauge>
-       <!-- <VGauges>
-        </VGauges> -->
-
-      </q-step>
-
-      <q-step
-        :name="2"
-        title="Cliente"
-        icon="create_new_folder"
-      >
-        <div class="row inline justify-center">
-       <div
-       class="q-pa-md"
-       v-for="gauge in valoresCliente"
-       :key="gauge.value"
-       v-bind="gauge.value"
-       >
-        <!-- <Gauges
-        :value="gauge.value"
-        :title="gauge.title"
-        ></Gauges> -->
-        <VueSvgGauge
-        class="col"
+        </b-col>
+        </b-row>
+          </b-container>
+        </b-tab>
+        <b-tab no-body title="Cliente" title-link-class="text-brown">
+          <b-container display="flexbox">
+            <b-row cols="3">
+                <b-col
+                align-self="end"
+                v-for="gauge in valoresCliente"
+        :key="gauge.value"
+        v-bind="gauge.value"
+                >
+      <VueSvgGauge
         :value="gauge.value"
         :title="gauge.title"
         :separator-step="gauge.separatorStep"
         >
         </VueSvgGauge>
-       </div >
-       <!-- <VGauges>
-        </VGauges> -->
-
-    </div>
-      </q-step>
-
-      <q-step
-        :name="3"
-        title="Processos Internos"
-        icon="add_comment"
-      >
-        <div class="row inline justify-center ">
-       <div
-       class="q-pa-md itens-end"
-       v-for="gauge in valoresProcessos"
+        </b-col>
+        </b-row>
+          </b-container>
+        </b-tab>
+        <b-tab no-body title="Processos Internos" title-link-class="text-brown">
+          <b-container display="flexbox">
+            <b-row cols="3">
+                <b-col
+                align-self="end"
+                v-for="gauge in valoresProcessos"
+                    :key="gauge.value"
+                    v-bind="gauge.value"
+                >
+                  <VueSvgGauge
+                    :value="gauge.value"
+                    :title="gauge.title"
+                    :separator-step="gauge.separatorStep"
+                    >
+                    </VueSvgGauge>
+                </b-col>
+        </b-row>
+          </b-container>
+        </b-tab>
+        <b-tab no-body title="Aprendizado" title-link-class="text-brown">
+          <b-container display="flexbox">
+            <b-row cols="3">
+                <b-col
+                align-self="end"
+                v-for="gauge in valoresAprendizado"
        :key="gauge.value"
        v-bind="gauge.value"
-       >
-        <!-- <Gauges
-        :value="gauge.value"
-        :title="gauge.title"
-        ></Gauges> -->
-        <VueSvgGauge
-        class="col itens-end"
-        :value="gauge.value"
-        :title="gauge.title"
-        :separator-step="gauge.separatorStep"
-        >
-        </VueSvgGauge>
-       </div >
-       <!-- <VGauges>
-        </VGauges> -->
-
-    </div>
-      </q-step>
-      <q-step
-        :name="4"
-        title="Aprendizado e Crescimento"
-        icon="add_comment"
-      >
-       <div
-       style="width: 300px"
-       v-for="gauge in valoresAprendizado"
-       :key="gauge.value"
-       v-bind="gauge.value"
-       >
-        <!-- <Gauges
-        :value="gauge.value"
-        :title="gauge.title"
-        ></Gauges> -->
+                >
         <VueSvgGauge
         :value="gauge.value"
         :title="gauge.title"
         :separator-step="gauge.separatorStep"
         >
         </VueSvgGauge>
-       </div >
-       <!-- <VGauges>
-        </VGauges> -->
-      </q-step>
-
-      <!-- <template v-slot:navigation>
-        <q-stepper-navigation>
-          <q-btn @click="$refs.stepper.next()" color="primary" :label="step === 3 ? 'Finish' : 'Continue'" />
-          <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous()" label="Back" class="q-ml-sm" />
-        </q-stepper-navigation>
-      </template> -->
-    </q-stepper>
-    </q-page-container>
+        </b-col>
+        </b-row>
+          </b-container>
+        </b-tab>
+      </b-tabs>
+    </b-card>
+  </q-page-container>
   </q-layout>
 </template>
 
@@ -171,8 +145,8 @@ import VueSvgGauge from 'components/VueSvgGauge.vue'
 const linksData = [
   {
     title: 'Dashboard',
-    caption: 'quasar.dev',
-    icon: 'school',
+    caption: 'Acompanhamento de metas',
+    icon: 'leaderboard',
     link: 'https://quasar.dev'
   }
 ]
@@ -252,6 +226,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped>{
 
+ }
 </style>

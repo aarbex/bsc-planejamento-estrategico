@@ -1,9 +1,13 @@
 <template>
-    <div>
-        <div>
-            <h6>{{title}}</h6>
-        </div>
-        <VueSvgGauge
+    <b-container class="p-5" >
+        <b-row>
+            <b-col class="text-center">
+              <h6>{{title}}</h6>
+            </b-col>
+        </b-row>
+        <b-row>
+       <b-col>
+          <VueSvgGauge
         :start-angle="-90"
         :end-angle="90"
         :value= "value"
@@ -15,7 +19,9 @@
         :scale-interval="0.1"
         >
         </VueSvgGauge>
-    </div>
+       </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -43,5 +49,7 @@ export default {
 </script>
 
 <style>
-
+  .card-gauge{
+    padding: 5px;
+  }
 </style>
